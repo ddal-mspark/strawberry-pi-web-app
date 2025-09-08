@@ -1,0 +1,105 @@
+body { margin:0; background:#0b0e12; color:#e8edf3; font-family:sans-serif; }
+.topbar { display:flex; gap:12px; align-items:center; padding:14px; border-bottom:1px solid #243042; }
+.topbar h1 { margin:0; font-size:20px; }
+.topbar .sub { color:#7d8a99; font-size:14px; }
+
+.grid { display:grid; grid-template-columns:2fr 1fr; gap:14px; padding:14px; }
+.panel { background:#11161d; border:1px solid #243042; border-radius:14px; padding:14px; }
+
+.videos { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.video-card { border:1px dashed #243042; border-radius:12px; padding:10px; background:#0e131a; }
+.card-head { display:flex; justify-content:space-between; margin-bottom:8px; }
+.video-wrap { background:#000; height:200px; border-radius:8px; display:flex; align-items:center; justify-content:center; }
+.video-wrap img { width:100%; height:100%; object-fit:cover; }
+
+.dash { border:none; border-top:2px dashed #243042; margin:14px 0; }
+.task-row { display:flex; align-items:center; gap:8px; }
+.task-row select { background:#0b1016; color:#dfe8f1; border:1px solid #243042; border-radius:8px; padding:6px 10px; }
+
+.buttons { display:flex; gap:10px; margin-top:12px; }
+.btn { border:0; border-radius:10px; padding:10px 16px; font-weight:600; cursor:pointer; }
+.btn.start { background:#3ddc97; }
+.btn.stop { background:#4a5568; color:#fff; }
+.btn.estop {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #ff4d4f;
+  border: 3px solid #822;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+
+  /* 중앙 정렬 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.proc-row,.sensor-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.bar { flex:1; height:14px; background:#0b1016; border:1px solid #243042; border-radius:999px; overflow:hidden; }
+.fill { height:100%; width:0; background:linear-gradient(90deg,#3aa0ff,#7cc5ff); }
+
+.lights { display:flex; gap:6px; }
+.light { width:16px; height:16px; border-radius:50%; opacity:.2; }
+.light.green { background:#3ddc97; }
+.light.orange { background:#ffb703; }
+.light.red { background:#ff4d4f; }
+.lights .active { opacity:1; box-shadow:0 0 8px rgba(255,255,255,.15); }
+
+pre#log { background:#0b1016; border:1px solid #243042; border-radius:10px; padding:10px; height:220px; overflow:auto; margin:0; font-family:monospace; font-size:12px; }
+
+/* === Pretty Toggle === */
+.tgl{ position:relative; display:inline-block; width:74px; height:38px; }
+.tgl input{ position:absolute; opacity:0; width:0; height:0; } /* 시각적 숨김 */
+
+.tgl .track{
+  position:absolute; inset:0;
+  background:#ff5f7a;            /* OFF 기본색 (핑크) */
+  border-radius:999px;
+  box-shadow:
+    inset 0 2px 8px rgba(0,0,0,.25),
+    inset 0 -2px 6px rgba(255,255,255,.08),
+    0 2px 4px rgba(0,0,0,.25);
+  transition: background .2s ease, box-shadow .2s ease;
+}
+
+.tgl .thumb{
+  position:absolute; top:4px; left:4px;
+  width:30px; height:30px; border-radius:50%;
+  background:#fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.35);
+  transition: transform .22s ease;
+}
+
+.tgl .icon{
+  position:absolute; top:50%; transform:translateY(-50%);
+  font-weight:800; font-size:12px; letter-spacing:.4px;
+  pointer-events:none; user-select:none; opacity:.9;
+}
+.tgl .icon.on  { left:12px;  color:#125c33; }  /* ON 쪽(초록) */
+.tgl .icon.off { right:12px; color:#b11722; }  /* off 쪽(핑크) */
+
+/* 상태별 표시 */
+.tgl input:checked + .track .icon.on  { opacity:.95; }
+.tgl input:checked + .track .icon.off { opacity:0; }
+.tgl input:not(:checked) + .track .icon.on  { opacity:0; }
+.tgl input:not(:checked) + .track .icon.off { opacity:.95; }
+
+/* ON 상태 */
+.tgl input:checked + .track{
+  background:#4cd27a;            /* ON 초록 */
+  box-shadow:
+    inset 0 2px 8px rgba(0,0,0,.18),
+    inset 0 -2px 6px rgba(255,255,255,.12),
+    0 2px 4px rgba(0,0,0,.25);
+}
+.tgl input:checked + .track .thumb{
+  transform: translateX(36px);
+}
+
+/* 아이콘 표시 제어: ON일 땐 ✓ 보이고, OFF일 땐 × 보이기 */
+.tgl input:checked + .track .icon.on { opacity: .95; }
+.tgl input:checked + .track .icon.off{ opacity: 0;   }
+.tgl input:not(:checked) + .track .icon.on { opacity: 0; }
+.tgl input:not(:checked) + .track .icon.off{ opacity: .95; }
