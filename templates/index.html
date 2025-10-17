@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>Daedong AI-Lab · Robot Console</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>Daedong AI-Lab</h1>
+      <span class="sub">Strawberry Pi</span>
+    </header>
+
+    <main class="grid">
+      <!-- 왼쪽: 영상 -->
+      <section class="panel video-panel">
+        <div class="videos">
+          <div class="video-card" data-cam="cam1">
+            <div class="card-head">
+              <span>CAM1 Visualizer</span>
+                <label class="tgl">
+                <input type="checkbox" class="toggle" data-cam="cam1" checked>
+                <span class="track">
+                    <span class="icon on">ON</span>
+                    <span class="icon off">OFF</span>
+                    <span class="thumb"></span>
+                </span>
+                </label>
+            </div>
+            <div class="video-wrap">
+              <img id="cam1" src="" alt="cam1 stream" />
+            </div>
+          </div>
+
+          <div class="video-card" data-cam="cam2">
+            <div class="card-head">
+              <span>CAM2 Visualizer</span>
+                <label class="tgl">
+                <input type="checkbox" class="toggle" data-cam="cam2" checked>
+                <span class="track">
+                    <span class="icon on">ON</span>
+                    <span class="icon off">OFF</span>
+                    <span class="thumb"></span>
+                </span>
+                </label>
+            </div>
+            <div class="video-wrap">
+              <img id="cam2" src="" alt="cam2 stream" />
+            </div>
+          </div>
+
+          <div class="video-card" data-cam="cam3">
+            <div class="card-head">
+              <span>CAM3 Visualizer</span>
+                <label class="tgl">
+                <input type="checkbox" class="toggle" data-cam="cam3" checked>
+                <span class="track">
+                    <span class="icon on">ON</span>
+                    <span class="icon off">OFF</span>
+                    <span class="thumb"></span>
+                </span>
+                </label>
+            </div>
+            <div class="video-wrap">
+              <img id="cam3" src="" alt="cam3 stream" />
+            </div>
+          </div>
+        </div>
+
+        <hr class="dash" />
+
+        <div class="task-row">
+          <label for="task">Task</label>
+          <select id="task">
+            <option value="harvest">harvest</option>
+            <option value="leaf_remove">leaf remove</option>
+          </select>
+        </div>
+
+        <div class="buttons">
+          <button id="btn-start" class="btn start">Start</button>
+          <button id="btn-stop" class="btn stop">Stop</button>
+          <button id="btn-estop" class="btn estop" title="Emergency Stop">STOP</button>
+        </div>
+      </section>
+
+      <!-- 오른쪽: 상태/로그 -->
+      <section class="panel status-panel">
+        <h2>Process & Sensor Monitoring</h2>
+
+        <div class="proc">
+          <div class="sensor-row">
+            <span class="label">Process A</span>
+            <div class="lights" id="procA">
+              <span class="light green"></span>
+              <span class="light orange"></span>
+              <span class="light red"></span>
+            </div>
+          </div>
+          <div class="sensor-row">
+            <span class="label">Process B</span>
+            <div class="lights" id="procB">
+              <span class="light green"></span>
+              <span class="light orange"></span>
+              <span class="light red"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sensors">
+          <div class="sensor-row">
+            <span class="label">Sensor A</span>
+            <div class="lights" id="sensorA">
+              <span class="light green"></span>
+              <span class="light orange"></span>
+              <span class="light red"></span>
+            </div>
+          </div>
+          <div class="sensor-row">
+            <span class="label">Sensor B</span>
+            <div class="lights" id="sensorB">
+              <span class="light green"></span>
+              <span class="light orange"></span>
+              <span class="light red"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="log">
+          <h3>Text / Message (Log)</h3>
+          <pre id="log"></pre>
+        </div>
+      </section>
+    </main>
+
+    <script src="/static/js/main.js"></script>
+  </body>
+</html>
