@@ -6,10 +6,11 @@ import time
 app = Flask(__name__)
 
 STATE = {
+    "running": False,  # ← 시스템 실행 여부
     "cameras": {
-        "cam1": {"name": "Arm-L", "enabled": True},
-        "cam2": {"name": "Center", "enabled": True},
-        "cam3": {"name": "Arm-R", "enabled": True},
+        "cam1": {"name": "Arm-L", "enabled": False},
+        "cam2": {"name": "Center", "enabled": False},
+        "cam3": {"name": "Arm-R", "enabled": False},
     },
     "process": {
         "A": {"name": "Process A", "progress": 0},
@@ -59,11 +60,21 @@ def set_task():
 def command():
     action = request.json.get("action")
     if action == "start":
+        STATE["running"] = True
         log("시작 (Start)")
     elif action == "stop":
+        STATE["running"] = False
+        # 토글 상태들도 끄고 싶다면 주석 해제
+        for k in STATE["cameras"]:
+            STATE["cameras"][k]["enabled"] = False
         log("정지 (Stop)")
+
     elif action == "estop":
+        STATE["running"] = False           # ← 비상 정지 상태
+        for k in STATE["cameras"]:
+            STATE["cameras"][k]["enabled"] = False
         log("비상 정지 (EMERGENCY STOP)")
+
     else:
         return jsonify({"ok": False}), 400
     return jsonify({"ok": True})
@@ -78,7 +89,14 @@ def status():
         sen["status"] = (
             "green" if sen["level"] < 0.6 else ("orange" if sen["level"] < 0.85 else "red")
         )
-    return jsonify(STATE)
+    return jsonify({
+        "running": STATE["running"],       # ← 실행여부 반환
+        "cameras": STATE["cameras"],
+        "process": STATE["process"],
+        "sensors": STATE["sensors"],
+        "task": STATE["current_task"],
+        "log": STATE["log"],
+    })
 
 
 # ------------------ MJPEG generator ------------------
@@ -93,11 +111,9 @@ def gen_frames(video_rel_path):
     # FPS에 맞춰 살짝 쉬어주기 (너무 빠르게 돌지 않도록)
     fps = cap.get(cv2.CAP_PROP_FPS) or 25.0
     delay = 1.0 / float(fps)
-    print(f'\033[93mfps: {fps}\033[0m')
 
     while True:
         ok, frame = cap.read()
-        print(f'fps: {fps}, delay: {delay}, ok: {ok}, frame: {type(frame)}, shape: {frame.shape if ok else "N/A"}')
         if not ok:
             cap.set(cv2.CAP_PROP_POS_FRAMES, 0)  # loop
             continue

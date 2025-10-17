@@ -8,7 +8,7 @@
   <body>
     <header class="topbar">
       <h1>Daedong AI-Lab</h1>
-      <span class="sub">Robot Process & Sensor Monitoring</span>
+      <span class="sub">Strawberry Pi</span>
     </header>
 
     <main class="grid">
@@ -89,13 +89,21 @@
         <h2>Process & Sensor Monitoring</h2>
 
         <div class="proc">
-          <div class="proc-row">
+          <div class="sensor-row">
             <span class="label">Process A</span>
-            <div class="bar"><div class="fill" id="procA"></div></div>
+            <div class="lights" id="procA">
+              <span class="light green"></span>
+              <span class="light orange"></span>
+              <span class="light red"></span>
+            </div>
           </div>
-          <div class="proc-row">
+          <div class="sensor-row">
             <span class="label">Process B</span>
-            <div class="bar"><div class="fill" id="procB"></div></div>
+            <div class="lights" id="procB">
+              <span class="light green"></span>
+              <span class="light orange"></span>
+              <span class="light red"></span>
+            </div>
           </div>
         </div>
 
